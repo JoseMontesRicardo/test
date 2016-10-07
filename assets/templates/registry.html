@@ -1,0 +1,54 @@
+<div class="container" ng-controller="registryCtrl" ng-init="init()">
+    <h4>Formulario De Registro</h4>
+    <form action="/users" method="post" enctype='multipart/form-data'>
+        <div class="row">
+            <div class="input-field col s6">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="icon_prefix" name="names" type="text" class="validate">
+                <label for="icon_prefix">Name</label>
+            </div>
+            <div class="input-field col s6">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="icon_prefix" name="lastNames" type="text" class="validate">
+                <label for="icon_prefix">Last Name</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <i class="material-icons prefix">email</i>
+                <input id="icon_prefix" name="email" type="email" class="validate">
+                <label for="icon_prefix">Email</label>
+            </div>
+            <div class="input-field col s6">
+                <i class="material-icons prefix">date_range</i>
+                <input type="date" name="date" class="datepicker">
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <i class="material-icons prefix">vpn_key</i>
+                <input id="icon_prefix" name="pass1" type="password" class="validate">
+                <label for="icon_prefix">Password</label>
+            </div>
+            <div class="input-field col s6">
+                <i class="material-icons prefix">vpn_key</i>
+                <input id="icon_prefix" name="pass2" type="password" class="validate">
+                <label for="icon_prefix">Repeat Password</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="file-field input-field">
+            <div class="btn">
+                <span>File</span>
+                <input type="file" name="avatar">
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" name="avatar" type="text">
+            </div>
+            </div>
+        </div>
+        <div class="row">
+            <input class="btn col s12" type="submit">
+        </div>
+    </form>
+</div>

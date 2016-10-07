@@ -1,0 +1,46 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "prueba nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watcher": "nodemon dist/server.js",
+    "start" : "node dist/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoseMontesRicardo/test.git"
+  },
+  "keywords": [
+    "nodeJS"
+  ],
+  "author": "jose montes <josehilariomontesricardo@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoseMontesRicardo/test/issues"
+  },
+  "homepage": "https://github.com/JoseMontesRicardo/test#readme",
+  "devDependencies": {
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-es2015": "^6.16.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-refresh": "^1.1.0",
+    "gulp-stylus": "^2.5.0"
+  },
+  "dependencies": {
+    "app-root-dir": "^1.0.2",
+    "babel-runtime": "^6.11.6",
+    "bcrypt": "^0.8.7",
+    "body-parser": "^1.15.2",
+    "co-express": "^1.2.2",
+    "compression": "^1.6.2",
+    "connect-multiparty": "^2.0.0",
+    "express": "^4.14.0",
+    "jsonwebtoken": "^7.1.9",
+    "mongoose": "^4.6.2",
+    "socket.io": "^1.5.0",
+    "uuid-base62": "^0.1.0"
+  }
+}

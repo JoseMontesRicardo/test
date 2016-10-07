@@ -1,0 +1,26 @@
+{
+  "name": "test",
+  "description": "prueba nodejs",
+  "main": "index.js",
+  "authors": [
+    "jose montes <josehilariomontesricardo@gmail.com>"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "nodeJS"
+  ],
+  "homepage": "https://github.com/JoseMontesRicardo/test",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-cookies": "^1.5.8",
+    "angular": "^1.5.8",
+    "angular-route": "^1.5.8"
+  }
+}

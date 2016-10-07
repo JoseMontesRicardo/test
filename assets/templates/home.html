@@ -1,0 +1,17 @@
+<div class="home-panel" ng-init="init()">
+    <div class="left-bar">
+        <div class="collection">
+            <a href="" ng-repeat=" user in users " ng-click="selectedUser(user)" uid="{{ user._id }}" class="collection-item">{{ user.names }}</a>
+        </div>
+    </div>
+    <div ng-if="pictures">
+        <h5>{{ selected.names }} Gallery</h5>
+        <div class="home-panel__galery">
+            <figure class="home-panel__galery__pic--container" ng-repeat="pic in pictures">
+                <a href="/home/{{ pic._id }}">
+                    <img src="{{ pic.path }}" pic_uuid="{{ pic._id }}" class="home-panel__galery__pic--container__image">
+                </a>
+            </figure>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="container" ng-controller="newCtrl">
+    <h4>Nueva Foto</h4>
+    <!--<form action="/pictures" method="post" enctype='multipart/form-data'>-->
+    <form>
+        <div class="row">
+            <div class="file-field input-field">
+            <div class="btn">
+                <span>File</span>
+                <input type="file" file-model="myFile"/>
+                <!--<input type="file" name="photo">-->
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" name="name" type="text">
+            </div>
+            </div>
+            <button class="btn col s12" ng-click="upload()">Enviar</button>
+        <!--<input class="btn col s12" type="submit">-->
+        </div>
+    </form>
+</div>
