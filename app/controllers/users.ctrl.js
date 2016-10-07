@@ -41,7 +41,7 @@ class UsersCtlr {
                     res.send('extension no valida')
                 }
             } else {
-                res.status(500).send({error: 'internal server error'})
+                res.redirect('/')
             }
         }) 
     }
