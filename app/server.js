@@ -6,6 +6,11 @@ import multiPart from 'connect-multiparty'
 import compression from 'compression'
 import http from 'http'
 import socket from 'socket.io'
+import config from '../config'
+import jwt from 'jsonwebtoken'
+import FixturesUsers from './fixtures/fixtures.users'
+import Pictures from './models/pictures'
+
 
 // constantes del server
 const listenPort = process.env.LISTENPORT || 3000
@@ -33,7 +38,32 @@ app.get('/', function(req, res){
 })
 
 io.on('connection', function (socket) {
-    socket.emit('news', { hello: 'world' })
+    socket.on('sendComment', function(data){
+        let comment = data.comment
+        let idPic = data.idPic
+        FixturesUsers.decodeToken(data.token)
+          .then(function(user){
+              let name = user.names
+              let idUser = user._id
+              Pictures.findOne({ _id: idPic }, function(err, res){
+                  if (err) {
+                      throw (err)
+                  } else {
+                      res.comments.push( { id: idUser, name: name, comment: comment } )
+
+                      res.save(function(err, pic){
+                          if ( err ){
+                              throw (err)
+                          } else {
+                              socket.broadcast.emit('sendComment', { idPic: idPic, comment: pic.comments[pic.comments.length-1] })
+                              socket.emit('sendComment', { idPic: idPic, comment: pic.comments[pic.comments.length-1] })
+                          }
+                      })
+                  }
+              })
+          })
+          .catch( err => console.log(err) )
+    })
 })
 
 server.listen(listenPort, function(){

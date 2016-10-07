@@ -1,6 +1,21 @@
 <div ng-init="init()">
     <div class="pic-panel">
-        <div class="pic-panel__left"></div>
+        <div class="pic-panel__left">
+            <div class="row container">
+                <div class="input-field col s12">
+                    <textarea id="textarea1" ng-model="sendComm" class="materialize-textarea"></textarea>
+                    <label for="textarea1">Comment</label>
+                </div>
+                <button class="btn col s12" ng-click="sendComment(sendComm)">Send</button>
+            </div>
+
+            <div class="container">
+                <p class="teal-text text-darken-1">COMMENTS</p>
+                <div ng-repeat="comment in comments">
+                    <label for="">{{ comment.name | uppercase}} : </label><span>{{ comment.comment }}</span>
+                </div>
+             </div>
+        </div>
         <div class="pic-panel__right grey lighten-2">
             <figure class="z-depth-3">
                 <img src="{{pic.path}}" alt="">

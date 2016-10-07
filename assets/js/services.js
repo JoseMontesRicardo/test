@@ -75,18 +75,22 @@
 
         .service('fileUpload', ['$http', '$cookies', '$location', function ($http, $cookies, $location) {
             this.uploadFileToUrl = function(file, uploadUrl){
-                var fd = new FormData();
-                fd.append('photo', file);
-                $http.post(uploadUrl, fd, {
+                if ( file ){
+                  var fd = new FormData();
+                  fd.append('photo', file);
+                  $http.post(uploadUrl, fd, {
                     transformRequest: angular.identity,
                     headers: {'Content-Type': undefined, 'x-access-token': $cookies.get('token')}
-                })
-                .success(function(data){
+                  })
+                  .success(function(data){
                     $location.path("/home")
-                })
-                .error(function(err){
+                  })
+                  .error(function(err){
                     console.log(err)
-                })
+                  })
+                } else {
+                    alert('debe seleccionar una imagen!')
+                }
             }
         }])
 })()

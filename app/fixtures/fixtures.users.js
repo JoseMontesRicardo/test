@@ -64,6 +64,18 @@ class FixturesUsers {
         })
     }
 
+    static decodeToken(token) {
+        return new Promise(function(resolve, reject) {
+            jwt.verify(token, config.apisecret, (err, decoded) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(decoded._doc)
+                }
+            })
+        })
+    }
+
     static verifyUser(email, pass) {
         return new Promise((resolve, reject)=>{
             User.findOne({ email: email }, function (err, user) {

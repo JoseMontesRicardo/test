@@ -14,6 +14,7 @@ let Picture = new Schema({
         date        : Date,
         comments    : [
             {
+                id : String,
                 name: String,
                 comment: String
             }

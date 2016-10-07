@@ -18,12 +18,27 @@
         })
 
 
-         .controller('detailCtrl', function($scope, $routeParams, pictures) {
+         .controller('detailCtrl', function($scope, $routeParams, $cookies, pictures, socket) {
+             socket.on('sendComment', function(comment){
+                if ( $scope.idPic === comment.idPic )
+                    $scope.comments.push(comment.comment)
+             })
+
+            $scope.idPic = $routeParams.id
+            $scope.sendComment = function(comm){
+                if ( comm ) {
+                    socket.emit('sendComment', {comment: comm, idPic: $scope.idPic, token: $cookies.get('token')})
+                    $scope.sendComm = undefined
+                } else {
+                    alert('escriba un comentario')
+                }
+            }
+            
             $scope.init = function(){
                 pictures.getPic($routeParams.id)
                   .then(function(data){
                       $scope.pic = data
-                      console.log(data)
+                      $scope.comments = data.comments
                   })
                   .catch(function(err){
                       console.log(err)
@@ -59,13 +74,8 @@
         })
 
         // controlador para el home
-        .controller('homeCtrl', function($scope, $cookies, users, pictures, socket) {
+        .controller('homeCtrl', function($scope, $cookies, users, pictures ) {
             $scope.selected = {}
-                        
-            socket.on('news', function (data) {
-                console.log(data)
-            })
-
             $scope.selectedUser = function(user){
                 $scope.selected = user
                 pictures.getPictures($scope.selected._id)
