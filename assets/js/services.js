@@ -73,7 +73,7 @@
             }
         })
 
-        .service('fileUpload', ['$http', '$cookies', function ($http, $cookies) {
+        .service('fileUpload', ['$http', '$cookies', '$location', function ($http, $cookies, $location) {
             this.uploadFileToUrl = function(file, uploadUrl){
                 var fd = new FormData();
                 fd.append('photo', file);
@@ -82,7 +82,7 @@
                     headers: {'Content-Type': undefined, 'x-access-token': $cookies.get('token')}
                 })
                 .success(function(data){
-                    console.log(data)
+                    $location.path("/home")
                 })
                 .error(function(err){
                     console.log(err)

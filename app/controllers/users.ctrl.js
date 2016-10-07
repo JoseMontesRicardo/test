@@ -28,16 +28,20 @@ class UsersCtlr {
             let pass2 = req.body.pass2 
             let ext = pathLib.extname(path)
 
-            if ( ext === '.jpg' || ext === '.png' || ext === '.svg' ) {
-                try {
-                    let newPath = yield FixturesUser.copyImage(path, ext)
-                    let newUser = yield FixturesUser.saveUser(newPath, names, lNames, email, date, pass1, pass2 )
-                    res.send(newUser)
-                } catch (error) {
-                    res.status(500).send(error)
+            if ( path && names && lNames && email && date && pass1 && pass2 ) {
+                if ( ext === '.jpg' || ext === '.png' || ext === '.svg' ) {
+                    try {
+                        let newPath = yield FixturesUser.copyImage(path, ext)
+                        let newUser = yield FixturesUser.saveUser(newPath, names, lNames, email, date, pass1, pass2 )
+                        res.redirect('/')
+                    } catch (error) {
+                        res.status(500).send(error)
+                    }
+                } else {
+                    res.send('extension no valida')
                 }
             } else {
-                res.send('extension no valida')
+                res.status(500).send({error: 'internal server error'})
             }
         }) 
     }
