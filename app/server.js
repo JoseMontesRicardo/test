@@ -10,6 +10,7 @@ import config from '../config'
 import jwt from 'jsonwebtoken'
 import FixturesUsers from './fixtures/fixtures.users'
 import Pictures from './models/pictures'
+import _ from 'underscore'
 
 
 // constantes del server
@@ -38,6 +39,47 @@ app.get('/', function(req, res){
 })
 
 io.on('connection', function (socket) {
+    socket.on('like', function(data) {
+        FixturesUsers.decodeToken(data.token)
+          .then(function(user){
+              let idUser = user._id
+              let idPic = data.idPic
+              Pictures.findOne({ _id: idPic }, function(err, res){
+                  if (!err) {
+                    let likeExist = res.likes.find( obj => obj._id == idUser )
+                    if ( likeExist ){
+                        res.likes.forEach(function(element) {
+                            if (element.id === idUser ){
+                                res.likes = _.without(res.likes, element)
+                                res.save(function(err, likes){
+                                if ( !err ){
+                                    socket.emit('like', { idPic: idPic, likes : likes.likes.length })
+                                    socket.broadcast.emit('like', { idPic: idPic, likes : likes.likes.length })
+                                } else {
+                                    throw (err)
+                                }
+                      })
+                                console.log(res.likes)
+                            }
+                        })
+                    } else {
+                      res.likes.push(idUser)
+                      res.save(function(err, likes){
+                          if ( !err ){
+                              socket.emit('like', { idPic: idPic, likes : likes.likes.length })
+                              socket.broadcast.emit('like', {idPic: idPic, likes : likes.likes.length })
+                          } else {
+                              throw (err)
+                          }
+                      })
+                    }
+                  } else {
+                      throw (err)
+                  }
+              })
+          })
+          .catch( err => console.log(err) )
+    })
     socket.on('sendComment', function(data){
         let comment = data.comment
         let idPic = data.idPic

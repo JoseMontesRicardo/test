@@ -19,12 +19,22 @@
 
 
          .controller('detailCtrl', function($scope, $routeParams, $cookies, pictures, socket) {
+            
+             $scope.idPic = $routeParams.id
+
              socket.on('sendComment', function(comment){
                 if ( $scope.idPic === comment.idPic )
                     $scope.comments.push(comment.comment)
              })
+              socket.on('like', function(like){
+                if ( $scope.idPic === like.idPic )                  
+                    $scope.likes = like.likes
+             })
 
-            $scope.idPic = $routeParams.id
+            $scope.like = function(){
+                socket.emit('like', { idPic: $scope.idPic, token: $cookies.get('token') })                
+            }
+
             $scope.sendComment = function(comm){
                 if ( comm ) {
                     socket.emit('sendComment', {comment: comm, idPic: $scope.idPic, token: $cookies.get('token')})
@@ -37,6 +47,7 @@
             $scope.init = function(){
                 pictures.getPic($routeParams.id)
                   .then(function(data){
+                      $scope.likes = data.likes.length
                       $scope.pic = data
                       $scope.comments = data.comments
                   })

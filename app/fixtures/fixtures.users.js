@@ -76,6 +76,7 @@ class FixturesUsers {
         })
     }
 
+
     static verifyUser(email, pass) {
         return new Promise((resolve, reject)=>{
             User.findOne({ email: email }, function (err, user) {

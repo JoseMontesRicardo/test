@@ -17,9 +17,15 @@
              </div>
         </div>
         <div class="pic-panel__right grey lighten-2">
-            <figure class="z-depth-3">
-                <img src="{{pic.path}}" alt="">
-            </figure>
+            <div class="pic-panel__right__content">
+                <figure class="z-depth-3">
+                    <img src="{{pic.path}}" alt="">
+                </figure>
+                <div>
+                    <a href="" ng-click="like()"><i class="material-icons grey-text text">thumb_up</i></a>
+                    <span class="grey-text text likes-user">{{ likes }}</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
